@@ -1,0 +1,30 @@
+{
+  "accountAssociation": {
+    "header": "eyJmaWQiOjkxNTIsInR5cGUiOiJjdXN0b2R5Iiwia2V5IjoiMHgwMmVmNzkwRGQ3OTkzQTM1ZkQ4NDdDMDUzRURkQUU5NDBEMDU1NTk2In0",
+    "payload": "eyJkb21haW4iOiJ0cmFkZWR1ZWwueHl6In0",
+    "signature": "MHgxMGQwZGU4ZGYwZDUwZTdmMGIxN2YxMTU2NDI1MjRmZTY0MTUyZGU4ZGU1MWU0MThiYjU4ZjVmZmQxYjRjNDBiNGVlZTRhNDcwNmVmNjhlMzQ0ZGQ5MDBkYmQyMmNlMmVlZGY5ZGQ0N2JlNWRmNzMwYzUxNjE4OWVjZDJjY2Y0MDFj"
+  },
+  "frame": {
+    "version": "next",
+    "name": "TradeDuel",
+    "homeUrl": "https://tradeduel.xyz/",
+    "iconUrl": "https://tradeduel.xyz/images/icon-256x256.png",
+    "splashImageUrl": "https://tradeduel.xyz/images/splash-200x200.png",
+    "splashBackgroundColor": "#1A1A2E",
+    "webhookUrl": "https://tradeduel.xyz/api/farcaster/webhook",
+    "subtitle": "Paper trading challenges on Base",
+    "description": "Challenge friends to paper trading duels, compete in group battles, and build your onchain reputation. Practice trading strategies without financial risk.",
+    "screenshotUrls": [
+      "https://tradeduel.xyz/images/screenshot-1.png",
+      "https://tradeduel.xyz/images/screenshot-2.png",
+      "https://tradeduel.xyz/images/screenshot-3.png"
+    ],
+    "primaryCategory": "social",
+    "tags": ["trading", "competition", "base", "farcaster", "paper-trading"],
+    "heroImageUrl": "https://tradeduel.xyz/images/hero.png",
+    "tagline": "Challenge friends to trading duels",
+    "ogTitle": "TradeDuel - Paper Trading Challenges on Base",
+    "ogDescription": "Practice trading, challenge friends, and build your reputation on Base. No real money at risk.",
+    "ogImageUrl": "https://tradeduel.xyz/images/og-image.png"
+  }
+}
