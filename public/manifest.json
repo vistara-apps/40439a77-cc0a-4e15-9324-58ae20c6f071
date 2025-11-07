@@ -1,0 +1,14 @@
+{
+  "name": "TradeDuel",
+  "description": "TradeDuel is a Base Mini App built with Zara.",
+  "image": "https://dummyimage.com/1200x628/0a0b0d/ffffff.png&text=OG",
+  "external_url": "https://40439a77-cc0a-4e15-9324-58ae20c6f071.vercel.app",
+  "properties": {
+    "app": {
+      "name": "TradeDuel",
+      "description": "TradeDuel is a Base Mini App built with Zara.",
+      "url": "https://40439a77-cc0a-4e15-9324-58ae20c6f071.vercel.app",
+      "icon": "https://0co.to/images/zara-2.png"
+    }
+  }
+}

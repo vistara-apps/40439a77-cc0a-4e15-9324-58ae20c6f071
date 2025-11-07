@@ -7,11 +7,11 @@
   "frame": {
     "version": "next",
     "name": "TradeDuel",
-    "homeUrl": "https://tradeduel.xyz/",
+    "homeUrl": "https://app-20c6f071-qztq.vercel.app",
     "iconUrl": "https://tradeduel.xyz/images/icon-256x256.png",
     "splashImageUrl": "https://tradeduel.xyz/images/splash-200x200.png",
     "splashBackgroundColor": "#1A1A2E",
-    "webhookUrl": "https://tradeduel.xyz/api/farcaster/webhook",
+    "webhookUrl": "https://app-20c6f071-qztq.vercel.app/api/webhook",
     "subtitle": "Paper trading challenges on Base",
     "description": "Challenge friends to paper trading duels, compete in group battles, and build your onchain reputation. Practice trading strategies without financial risk.",
     "screenshotUrls": [
@@ -20,7 +20,13 @@
       "https://tradeduel.xyz/images/screenshot-3.png"
     ],
     "primaryCategory": "social",
-    "tags": ["trading", "competition", "base", "farcaster", "paper-trading"],
+    "tags": [
+      "trading",
+      "competition",
+      "base",
+      "farcaster",
+      "paper-trading"
+    ],
     "heroImageUrl": "https://tradeduel.xyz/images/hero.png",
     "tagline": "Challenge friends to trading duels",
     "ogTitle": "TradeDuel - Paper Trading Challenges on Base",
