@@ -13,10 +13,15 @@ TradeDuel is a comprehensive paper trading dapp built on Base with 3 distinct tr
 - **Wallet Dropdown**: Easy access to wallet details and disconnect functionality
 
 ### ✅ 2. Real-Time Price Data
-- **Bitcoin (BTC) & Solana (SOL)**: Live price tracking with simulated market data
+- **Bitcoin (BTC) & Solana (SOL)**: Live price tracking with **real external data sources**
+- **Data Sources**:
+  - **CoinGecko API**: Initial price fetch with 24h percentage change
+  - **Binance WebSocket**: Real-time streaming price updates
 - **Price Charts**: Visual price history with 50-point rolling display
-- **24h Change**: Percentage change indicators with color-coded trends
-- **Auto-Updates**: Prices update every 2 seconds to simulate real-time market conditions
+- **24h Change**: Real percentage change indicators with color-coded trends
+- **Auto-Updates**: WebSocket connection provides instant price updates
+- **Resilience**: Automatic reconnection if WebSocket drops
+- **Loading States**: Elegant loading indicator while fetching initial prices
 
 ### ✅ 3. Trading Interface
 - **Interactive Charts**: Visual price history for both BTC and SOL
@@ -140,11 +145,12 @@ Manages all trading logic including:
 - Session lifecycle
 
 ### usePrices Hook
-Provides real-time price simulation:
-- BTC and SOL price tracking
-- Simulated price movements (±0.1-0.15%)
-- 2-second update interval
-- 24h change tracking
+Provides real-time price data from external sources:
+- **CoinGecko API**: Fetches initial prices and 24h changes
+- **Binance WebSocket**: Streams live price updates for BTC and SOL
+- **Automatic Reconnection**: Reconnects WebSocket if connection drops
+- **Fallback Prices**: Uses reasonable defaults if API fails
+- **Loading State**: Returns `isLoading` flag for better UX
 
 ### Trading Interface
 Reusable across all modes:
@@ -191,17 +197,27 @@ Reusable across all modes:
 7. Compete on live leaderboard
 8. Top 3 traders win prizes
 
+## Recent Enhancements (Completed)
+
+✅ **Real-Time Pricing Implementation**:
+- Integrated CoinGecko API for initial price data
+- Added Binance WebSocket for live streaming updates
+- Implemented automatic reconnection logic
+- Added loading states across all trading modes
+- Real 24h percentage changes from market data
+
 ## Future Enhancements
 
 Potential additions for production:
-- Real price data from CoinGecko/CoinMarketCap API
 - Backend for challenge coordination
 - Smart contracts for wager escrow
 - NFT badges for achievements
 - Historical session tracking
 - Social sharing integration
 - Mobile responsive improvements
-- More coins (ETH, MATIC, etc.)
+- More coins (ETH, MATIC, USDC, etc.)
+- Price alerts and notifications
+- Historical chart data (1h, 24h, 7d views)
 
 ## Testing
 

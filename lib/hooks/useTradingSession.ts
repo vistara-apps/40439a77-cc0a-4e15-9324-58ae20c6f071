@@ -5,7 +5,7 @@ import type { TradingSession, Trade, CoinType } from '../types'
 import { usePrices } from './usePrices'
 
 export function useTradingSession(initialBalance: number = 10000) {
-  const prices = usePrices()
+  const { prices, isLoading } = usePrices()
   const [session, setSession] = useState<TradingSession>({
     id: Date.now().toString(),
     mode: 'regular',
@@ -179,6 +179,7 @@ export function useTradingSession(initialBalance: number = 10000) {
   return {
     session,
     prices,
+    isLoading,
     executeTrade,
     updatePositions,
     endSession,

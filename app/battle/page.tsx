@@ -52,7 +52,7 @@ export default function BattlePage() {
     },
   ])
 
-  const { session, prices, executeTrade, updatePositions, endSession, resetSession } =
+  const { session, prices, isLoading, executeTrade, updatePositions, endSession, resetSession } =
     useTradingSession(challengeSettings.startingBalance)
 
   useEffect(() => {
@@ -279,6 +279,14 @@ export default function BattlePage() {
     <div className="min-h-screen bg-bg">
       <Header />
       
+      {isLoading ? (
+        <div className="flex min-h-[60vh] items-center justify-center">
+          <div className="text-center">
+            <div className="mb-4 inline-block h-12 w-12 animate-spin rounded-full border-4 border-solid border-primary border-r-transparent"></div>
+            <p className="text-lg text-fg/70">Loading real-time prices...</p>
+          </div>
+        </div>
+      ) : (
       <div className="container mx-auto px-6 py-8">
         {/* Battle Header */}
         <div className="mb-6">
@@ -389,6 +397,7 @@ export default function BattlePage() {
           </div>
         </div>
       </div>
+      )}
 
       {showSummary && (
         <PLSummary
