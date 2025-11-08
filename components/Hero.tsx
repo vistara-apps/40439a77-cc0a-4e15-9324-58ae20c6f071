@@ -24,12 +24,18 @@ export function Hero() {
           </p>
 
           <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
-            <button className="rounded-lg bg-primary px-8 py-4 text-base font-semibold text-white shadow-card transition-all duration-200 hover:bg-accent hover:shadow-lg">
+            <a
+              href="/trade"
+              className="rounded-lg bg-primary px-8 py-4 text-base font-semibold text-white shadow-card transition-all duration-200 hover:bg-accent hover:shadow-lg text-center"
+            >
               Start Trading
-            </button>
-            <button className="rounded-lg border border-primary/20 bg-surface px-8 py-4 text-base font-semibold text-fg transition-all duration-200 hover:bg-surface/80">
+            </a>
+            <a
+              href="/vs"
+              className="rounded-lg border border-primary/20 bg-surface px-8 py-4 text-base font-semibold text-fg transition-all duration-200 hover:bg-surface/80 text-center"
+            >
               Create Challenge
-            </button>
+            </a>
           </div>
 
           <div className="mt-12 flex items-center justify-center gap-8 text-sm text-fg/60">

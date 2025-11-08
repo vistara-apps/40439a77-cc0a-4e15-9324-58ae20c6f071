@@ -1,12 +1,28 @@
 'use client'
 
-import { Wallet } from 'lucide-react'
+import {
+  ConnectWallet as OnchainKitConnectWallet,
+  Wallet,
+  WalletDropdown,
+  WalletDropdownDisconnect,
+} from '@coinbase/onchainkit/wallet'
+import { Address, Avatar, Name, Identity } from '@coinbase/onchainkit/identity'
 
 export function ConnectWallet() {
   return (
-    <button className="flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white shadow-card transition-all duration-200 hover:bg-accent hover:shadow-lg">
-      <Wallet className="h-4 w-4" />
-      <span className="hidden sm:inline">Connect Wallet</span>
-    </button>
+    <Wallet>
+      <OnchainKitConnectWallet className="!bg-primary !text-white hover:!bg-accent !px-4 !py-2 !text-sm !font-semibold !rounded-lg !shadow-card transition-all duration-200">
+        <Avatar className="h-6 w-6" />
+        <Name />
+      </OnchainKitConnectWallet>
+      <WalletDropdown>
+        <Identity className="px-4 pt-3 pb-2" hasCopyAddressOnClick>
+          <Avatar />
+          <Name />
+          <Address />
+        </Identity>
+        <WalletDropdownDisconnect />
+      </WalletDropdown>
+    </Wallet>
   )
 }

@@ -62,9 +62,18 @@ export function ChallengeSection() {
               
               <p className="mb-6 text-sm text-fg/70">{challenge.description}</p>
 
-              <button className="w-full rounded-lg border border-primary/20 bg-primary/5 px-6 py-3 text-sm font-semibold text-primary transition-all duration-200 hover:bg-primary hover:text-white">
+              <a
+                href={
+                  challenge.title === 'Regular Paper Trading'
+                    ? '/trade'
+                    : challenge.title === '1v1 Challenge'
+                    ? '/vs'
+                    : '/battle'
+                }
+                className="block w-full rounded-lg border border-primary/20 bg-primary/5 px-6 py-3 text-center text-sm font-semibold text-primary transition-all duration-200 hover:bg-primary hover:text-white"
+              >
                 Start Challenge
-              </button>
+              </a>
             </div>
           ))}
         </div>
