@@ -12,7 +12,7 @@ import { Header } from '@/components/Header'
 import type { CoinType } from '@/lib/types'
 
 export default function TradePage() {
-  const { session, prices, executeTrade, updatePositions, endSession, resetSession } =
+  const { session, prices, isLoading, executeTrade, updatePositions, endSession, resetSession } =
     useTradingSession(10000)
   const [showSummary, setShowSummary] = useState(false)
   const [selectedCoin, setSelectedCoin] = useState<CoinType>('BTC')
@@ -40,6 +40,14 @@ export default function TradePage() {
     <div className="min-h-screen bg-bg">
       <Header />
       
+      {isLoading ? (
+        <div className="flex min-h-[60vh] items-center justify-center">
+          <div className="text-center">
+            <div className="mb-4 inline-block h-12 w-12 animate-spin rounded-full border-4 border-solid border-primary border-r-transparent"></div>
+            <p className="text-lg text-fg/70">Loading real-time prices...</p>
+          </div>
+        </div>
+      ) : (
       <div className="container mx-auto px-6 py-8">
         {/* Header */}
         <div className="mb-6 flex items-center justify-between">
@@ -161,6 +169,7 @@ export default function TradePage() {
           </div>
         )}
       </div>
+      )}
 
       {/* P&L Summary Modal */}
       {showSummary && (
