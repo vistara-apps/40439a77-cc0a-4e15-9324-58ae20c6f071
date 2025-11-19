@@ -1,6 +1,6 @@
 'use client'
 
-import { Trophy, TrendingUp, Medal } from 'lucide-react'
+import { Trophy, Medal } from 'lucide-react'
 
 const leaderboardData = [
     { rank: 1, username: 'crypto_king', pnl: 12500.50, pnlPercent: 125.5, trades: 45 },

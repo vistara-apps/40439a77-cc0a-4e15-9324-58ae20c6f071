@@ -28,7 +28,7 @@ export function useTradingSessionDB(initialBalance: number = 10000) {
     const loadOrCreateSession = async () => {
       try {
         setIsLoading(true)
-        
+
         // Try to find an active session for this user
         let sessionData: { id: string } | null = null
         if (address) {
@@ -41,7 +41,7 @@ export function useTradingSessionDB(initialBalance: number = 10000) {
             .order('created_at', { ascending: false })
             .limit(1)
             .maybeSingle()
-            
+
           sessionData = data as { id: string } | null
         }
 
@@ -62,7 +62,7 @@ export function useTradingSessionDB(initialBalance: number = 10000) {
     }
 
     loadOrCreateSession()
-  }, [address, initialBalance])
+  }, [address, initialBalance, createNewSession])
 
   const createNewSession = useCallback(async () => {
     try {
@@ -268,8 +268,8 @@ export function useTradingSessionDB(initialBalance: number = 10000) {
       }
 
       // Update balance
-      const newBalance = type === 'buy' 
-        ? prev.currentBalance - cost 
+      const newBalance = type === 'buy'
+        ? prev.currentBalance - cost
         : prev.currentBalance + cost
 
       // Update positions
@@ -279,16 +279,16 @@ export function useTradingSessionDB(initialBalance: number = 10000) {
           // Update existing position
           const totalAmount = existingPosition.amount + amount
           const newAveragePrice = ((existingPosition.amount * existingPosition.averagePrice) + cost) / totalAmount
-          newPositions = newPositions.map((p) => 
-            p.coin === coin 
-              ? { 
-                  ...p, 
-                  amount: totalAmount, 
-                  averagePrice: newAveragePrice,
-                  currentPrice,
-                  pnl: (currentPrice - newAveragePrice) * totalAmount,
-                  pnlPercentage: ((currentPrice - newAveragePrice) / newAveragePrice) * 100
-                } 
+          newPositions = newPositions.map((p) =>
+            p.coin === coin
+              ? {
+                ...p,
+                amount: totalAmount,
+                averagePrice: newAveragePrice,
+                currentPrice,
+                pnl: (currentPrice - newAveragePrice) * totalAmount,
+                pnlPercentage: ((currentPrice - newAveragePrice) / newAveragePrice) * 100
+              }
               : p
           )
         } else {
@@ -314,12 +314,12 @@ export function useTradingSessionDB(initialBalance: number = 10000) {
             newPositions = newPositions.map((p) =>
               p.coin === coin
                 ? {
-                    ...p,
-                    amount: remainingAmount,
-                    currentPrice,
-                    pnl: (currentPrice - p.averagePrice) * remainingAmount,
-                    pnlPercentage: ((currentPrice - p.averagePrice) / p.averagePrice) * 100
-                  }
+                  ...p,
+                  amount: remainingAmount,
+                  currentPrice,
+                  pnl: (currentPrice - p.averagePrice) * remainingAmount,
+                  pnlPercentage: ((currentPrice - p.averagePrice) / p.averagePrice) * 100
+                }
                 : p
             )
           }
@@ -328,7 +328,7 @@ export function useTradingSessionDB(initialBalance: number = 10000) {
 
       // Calculate total P&L
       const totalValue = newBalance + newPositions.reduce(
-        (sum, p) => sum + p.amount * p.currentPrice, 
+        (sum, p) => sum + p.amount * p.currentPrice,
         0
       )
       const pnl = totalValue - prev.startBalance
@@ -350,7 +350,7 @@ export function useTradingSessionDB(initialBalance: number = 10000) {
 
       return updatedSession
     })
-  }, [prices, session.id, saveTrade, savePositions, updateSession])
+  }, [prices, saveTrade, savePositions, updateSession])
 
   const updatePositions = useCallback(() => {
     setSession((prev) => {
@@ -387,7 +387,7 @@ export function useTradingSessionDB(initialBalance: number = 10000) {
 
       return updatedSession
     })
-  }, [prices, session.id, savePositions, updateSession])
+  }, [prices, savePositions, updateSession])
 
   const endSession = useCallback(() => {
     setSession((prev) => {
@@ -398,7 +398,7 @@ export function useTradingSessionDB(initialBalance: number = 10000) {
       updateSession(endedSession)
       return endedSession
     })
-  }, [session.id, updateSession])
+  }, [updateSession])
 
   const resetSession = useCallback(() => {
     createNewSession()
