@@ -23,6 +23,43 @@ export function useTradingSessionDB(initialBalance: number = 10000) {
   })
   const [isLoading, setIsLoading] = useState(true)
 
+  const createNewSession = useCallback(async () => {
+    try {
+      const { data: sessionData, error } = await supabase
+        .from('tduel_trading_sessions')
+        .insert({
+          user_address: address,
+          mode: 'regular',
+          start_balance: initialBalance,
+          current_balance: initialBalance,
+          start_time: new Date().toISOString(),
+          pnl: 0,
+          pnl_percentage: 0,
+          status: 'active'
+        })
+        .select()
+        .single()
+
+      if (error) throw error
+
+      setSession({
+        id: sessionData.id,
+        mode: 'regular',
+        startBalance: initialBalance,
+        currentBalance: initialBalance,
+        startTime: Date.now(),
+        trades: [],
+        positions: [],
+        pnl: 0,
+        pnlPercentage: 0,
+      })
+    } catch (error) {
+      console.error('Error creating session:', error)
+      // Fallback to local state
+      setSession(prev => ({ ...prev, id: Date.now().toString() }))
+    }
+  }, [address, initialBalance])
+
   // Load existing session or create new one
   useEffect(() => {
     const loadOrCreateSession = async () => {
@@ -64,42 +101,7 @@ export function useTradingSessionDB(initialBalance: number = 10000) {
     loadOrCreateSession()
   }, [address, initialBalance, createNewSession])
 
-  const createNewSession = useCallback(async () => {
-    try {
-      const { data: sessionData, error } = await supabase
-        .from('tduel_trading_sessions')
-        .insert({
-          user_address: address,
-          mode: 'regular',
-          start_balance: initialBalance,
-          current_balance: initialBalance,
-          start_time: new Date().toISOString(),
-          pnl: 0,
-          pnl_percentage: 0,
-          status: 'active'
-        })
-        .select()
-        .single()
 
-      if (error) throw error
-
-      setSession({
-        id: sessionData.id,
-        mode: 'regular',
-        startBalance: initialBalance,
-        currentBalance: initialBalance,
-        startTime: Date.now(),
-        trades: [],
-        positions: [],
-        pnl: 0,
-        pnlPercentage: 0,
-      })
-    } catch (error) {
-      console.error('Error creating session:', error)
-      // Fallback to local state
-      setSession(prev => ({ ...prev, id: Date.now().toString() }))
-    }
-  }, [address, initialBalance])
 
   const loadSession = async (sessionId: string) => {
     try {
