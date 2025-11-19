@@ -7,11 +7,17 @@ import type { CoinPrice, CoinType } from '../types'
 const COINGECKO_IDS = {
   BTC: 'bitcoin',
   SOL: 'solana',
+  ETH: 'ethereum',
+  PUMP: 'pump-fun',
+  DOGE: 'dogecoin',
 }
 
 const BINANCE_SYMBOLS = {
   BTC: 'BTCUSDT',
   SOL: 'SOLUSDT',
+  ETH: 'ETHUSDT',
+  PUMP: 'PUMPUSDT',
+  DOGE: 'DOGEUSDT',
 }
 
 interface CoinGeckoResponse {
@@ -31,6 +37,24 @@ export function usePrices() {
     },
     SOL: {
       symbol: 'SOL',
+      price: 0,
+      change24h: 0,
+      timestamp: Date.now(),
+    },
+    ETH: {
+      symbol: 'ETH',
+      price: 0,
+      change24h: 0,
+      timestamp: Date.now(),
+    },
+    PUMP: {
+      symbol: 'PUMP',
+      price: 0,
+      change24h: 0,
+      timestamp: Date.now(),
+    },
+    DOGE: {
+      symbol: 'DOGE',
       price: 0,
       change24h: 0,
       timestamp: Date.now(),
@@ -68,6 +92,24 @@ export function usePrices() {
           change24h: data[COINGECKO_IDS.SOL]?.usd_24h_change || 0,
           timestamp: Date.now(),
         },
+        ETH: {
+          symbol: 'ETH',
+          price: data[COINGECKO_IDS.ETH]?.usd || 0,
+          change24h: data[COINGECKO_IDS.ETH]?.usd_24h_change || 0,
+          timestamp: Date.now(),
+        },
+        PUMP: {
+          symbol: 'PUMP',
+          price: data[COINGECKO_IDS.PUMP]?.usd || 0,
+          change24h: data[COINGECKO_IDS.PUMP]?.usd_24h_change || 0,
+          timestamp: Date.now(),
+        },
+        DOGE: {
+          symbol: 'DOGE',
+          price: data[COINGECKO_IDS.DOGE]?.usd || 0,
+          change24h: data[COINGECKO_IDS.DOGE]?.usd_24h_change || 0,
+          timestamp: Date.now(),
+        },
       })
       setIsLoading(false)
     } catch (error) {
@@ -83,6 +125,24 @@ export function usePrices() {
         SOL: {
           symbol: 'SOL',
           price: 185,
+          change24h: 0,
+          timestamp: Date.now(),
+        },
+        ETH: {
+          symbol: 'ETH',
+          price: 3400,
+          change24h: 0,
+          timestamp: Date.now(),
+        },
+        PUMP: {
+          symbol: 'PUMP',
+          price: 0.00002,
+          change24h: 0,
+          timestamp: Date.now(),
+        },
+        DOGE: {
+          symbol: 'DOGE',
+          price: 0.35,
           change24h: 0,
           timestamp: Date.now(),
         },
@@ -103,8 +163,8 @@ export function usePrices() {
           wsRef.current.close()
         }
 
-        // Create streams for both BTC and SOL
-        const streams = [BINANCE_SYMBOLS.BTC, BINANCE_SYMBOLS.SOL]
+        // Create streams for all supported coins
+        const streams = Object.values(BINANCE_SYMBOLS)
           .map((s) => `${s.toLowerCase()}@ticker`)
           .join('/')
 
@@ -124,21 +184,16 @@ export function usePrices() {
               const change24h = parseFloat(ticker.P) // 24h percentage change
 
               setPrices((prev) => {
-                if (symbol === BINANCE_SYMBOLS.BTC) {
+                // Find the coin type by matching the Binance symbol
+                const coinType = Object.keys(BINANCE_SYMBOLS).find(
+                  (key) => BINANCE_SYMBOLS[key as CoinType] === symbol
+                ) as CoinType | undefined
+
+                if (coinType && prev[coinType]) {
                   return {
                     ...prev,
-                    BTC: {
-                      ...prev.BTC,
-                      price,
-                      change24h,
-                      timestamp: Date.now(),
-                    },
-                  }
-                } else if (symbol === BINANCE_SYMBOLS.SOL) {
-                  return {
-                    ...prev,
-                    SOL: {
-                      ...prev.SOL,
+                    [coinType]: {
+                      ...prev[coinType],
                       price,
                       change24h,
                       timestamp: Date.now(),

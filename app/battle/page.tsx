@@ -9,7 +9,8 @@ import { TradePanel } from '@/components/TradePanel'
 import { Portfolio } from '@/components/Portfolio'
 import { ChallengeSettingsComponent } from '@/components/ChallengeSettings'
 import { PLSummary } from '@/components/PLSummary'
-import { useTradingSession } from '@/lib/hooks/useTradingSession'
+import { CoinDropdown } from '@/components/CoinDropdown'
+import { useTradingSessionDB } from '@/lib/hooks/useTradingSessionDB'
 import { Header } from '@/components/Header'
 import type { CoinType, ChallengeSettings, LeaderboardEntry } from '@/lib/types'
 
@@ -53,7 +54,7 @@ export default function BattlePage() {
   ])
 
   const { session, prices, isLoading, executeTrade, updatePositions, endSession, resetSession } =
-    useTradingSession(challengeSettings.startingBalance)
+    useTradingSessionDB(challengeSettings.startingBalance)
 
   useEffect(() => {
     updatePositions()
@@ -353,28 +354,11 @@ export default function BattlePage() {
         {/* Trading Interface */}
         <div className="grid gap-6 lg:grid-cols-3">
           <div className="space-y-6 lg:col-span-2">
-            <div className="flex gap-4">
-              <button
-                onClick={() => setSelectedCoin('BTC')}
-                className={`flex-1 rounded-lg border px-6 py-3 font-semibold transition-all ${
-                  selectedCoin === 'BTC'
-                    ? 'border-primary bg-primary text-white'
-                    : 'border-white/10 bg-surface text-fg hover:border-primary/50'
-                }`}
-              >
-                Bitcoin (BTC)
-              </button>
-              <button
-                onClick={() => setSelectedCoin('SOL')}
-                className={`flex-1 rounded-lg border px-6 py-3 font-semibold transition-all ${
-                  selectedCoin === 'SOL'
-                    ? 'border-primary bg-primary text-white'
-                    : 'border-white/10 bg-surface text-fg hover:border-primary/50'
-                }`}
-              >
-                Solana (SOL)
-              </button>
-            </div>
+            <CoinDropdown
+              selectedCoin={selectedCoin}
+              onCoinSelect={setSelectedCoin}
+              prices={prices}
+            />
 
             <TradingChart coin={selectedCoin} price={prices[selectedCoin]} />
             <TradePanel

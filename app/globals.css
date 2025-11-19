@@ -3,18 +3,28 @@
 @tailwind utilities;
 
 :root {
-  /* BASE theme - dark blue background, Base blue accents */
-  --color-bg: hsl(220, 30%, 8%);
-  --color-fg: hsl(210, 20%, 95%);
-  --color-surface: hsl(220, 25%, 12%);
-  --color-primary: #0052ff;
-  --color-accent: #0066ff;
-  --color-brand-green: hsl(140, 60%, 45%);
-  --color-brand-red: hsl(0, 70%, 55%);
+  /* Modern Dark Theme - Deep Space Blue & Vibrant Accents */
+  --color-bg: #030712; /* Very dark blue/black */
+  --color-fg: #f8fafc; /* Slate 50 */
+  --color-surface: #0f172a; /* Slate 900 */
+  --color-surface-highlight: #1e293b; /* Slate 800 */
   
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
+  --color-primary: #3b82f6; /* Blue 500 */
+  --color-primary-glow: rgba(59, 130, 246, 0.5);
+  
+  --color-accent: #8b5cf6; /* Violet 500 */
+  --color-accent-glow: rgba(139, 92, 246, 0.5);
+  
+  --color-success: #10b981; /* Emerald 500 */
+  --color-danger: #ef4444; /* Red 500 */
+  
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+  
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-bg: rgba(15, 23, 42, 0.6);
 }
 
 * {

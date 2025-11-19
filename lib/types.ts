@@ -1,4 +1,4 @@
-export type CoinType = 'BTC' | 'SOL'
+export type CoinType = 'BTC' | 'SOL' | 'ETH' | 'PUMP' | 'DOGE'
 
 export interface CoinPrice {
   symbol: CoinType

@@ -6,6 +6,7 @@ import { Hero } from '@/components/Hero'
 import { Features } from '@/components/Features'
 import { ChallengeSection } from '@/components/ChallengeSection'
 import { Header } from '@/components/Header'
+import { Leaderboard } from '@/components/Leaderboard'
 
 export default function Home() {
   const [isReady, setIsReady] = useState(false)
@@ -32,6 +33,7 @@ export default function Home() {
       <Hero />
       <Features />
       <ChallengeSection />
+      <Leaderboard />
     </main>
   )
 }

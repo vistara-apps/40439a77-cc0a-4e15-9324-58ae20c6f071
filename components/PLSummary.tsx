@@ -95,10 +95,10 @@ export function PLSummary({ session, onClose, onNewSession }: PLSummaryProps) {
       ctx.shadowBlur = 0
 
       // Emoji based on result
-      const emoji = isProfit 
-        ? session.pnlPercentage > 10 ? '🚀' 
-          : session.pnlPercentage > 5 ? '🔥' 
-          : '✨'
+      const emoji = isProfit
+        ? session.pnlPercentage > 10 ? '🚀'
+          : session.pnlPercentage > 5 ? '🔥'
+            : '✨'
         : '😤'
       ctx.font = 'bold 80px system-ui'
       ctx.fillText(emoji, 950, 280)
@@ -157,7 +157,7 @@ export function PLSummary({ session, onClose, onNewSession }: PLSummaryProps) {
       // Footer with style
       ctx.fillStyle = 'rgba(255, 255, 255, 0.4)'
       ctx.font = '24px system-ui, -apple-system, sans-serif'
-      ctx.fillText('tradeduel-pmao.vercel.app • Trade on Base', 60, 590)
+      ctx.fillText('tradeduel.xyz • Trade on Base', 60, 590)
 
       // Add decorative corner accent
       ctx.fillStyle = '#0052ff'
@@ -177,8 +177,8 @@ export function PLSummary({ session, onClose, onNewSession }: PLSummaryProps) {
   }
 
   const copyStats = () => {
-    const stats = `🎯 TradeDuel Results\n\n${isProfit ? '✅' : '❌'} P&L: ${isProfit ? '+' : ''}$${session.pnl.toFixed(2)} (${isProfit ? '+' : ''}${session.pnlPercentage.toFixed(2)}%)\n💰 Starting: $${session.startBalance.toFixed(2)}\n💵 Final: $${session.currentBalance.toFixed(2)}\n📊 Trades: ${session.trades.length}\n⏱️ Duration: ${duration}m\n\nTrade on Base: tradeduel-pmao.vercel.app`
-    
+    const stats = `🎯 TradeDuel Results\n\n${isProfit ? '✅' : '❌'} P&L: ${isProfit ? '+' : ''}$${session.pnl.toFixed(2)} (${isProfit ? '+' : ''}${session.pnlPercentage.toFixed(2)}%)\n💰 Starting: $${session.startBalance.toFixed(2)}\n💵 Final: $${session.currentBalance.toFixed(2)}\n📊 Trades: ${session.trades.length}\n⏱️ Duration: ${duration}m\n\nTrade on Base: tradeduel.xyz`
+
     navigator.clipboard.writeText(stats)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
@@ -216,82 +216,81 @@ export function PLSummary({ session, onClose, onNewSession }: PLSummaryProps) {
         </div>
       )}
 
-      <div className="w-full max-w-5xl animate-in fade-in zoom-in-95 duration-300">
+      <div className="w-full max-w-4xl animate-in fade-in zoom-in-95 duration-300 max-h-[90vh] overflow-y-auto rounded-2xl scrollbar-hide">
         {/* Header with performance level */}
-        <div className="mb-6 text-center">
-          <div className={`mb-2 inline-flex items-center gap-2 rounded-full bg-surface/80 px-6 py-3 backdrop-blur-sm ${performance.color}`}>
-            <PerformanceIcon className="h-6 w-6" />
-            <span className="text-xl font-bold">{performance.title}</span>
+        <div className="mb-4 text-center sticky top-0 z-10 pt-4">
+          <div className={`inline-flex items-center gap-2 rounded-full bg-surface/90 px-6 py-2 backdrop-blur-md border border-white/10 shadow-xl ${performance.color}`}>
+            <PerformanceIcon className="h-5 w-5" />
+            <span className="text-lg font-bold">{performance.title}</span>
           </div>
         </div>
 
-        <div className="overflow-hidden rounded-2xl border border-white/20 bg-gradient-to-br from-surface via-surface to-bg shadow-2xl">
+        <div className="overflow-hidden rounded-2xl border border-white/20 bg-gradient-to-br from-surface via-surface to-bg shadow-2xl mx-4 mb-4">
           {/* Main Content */}
-          <div className="p-8">
+          <div className="p-6">
             {/* Hero Stats */}
-            <div className={`relative mb-8 overflow-hidden rounded-2xl p-8 ${
-              isProfit 
-                ? 'bg-gradient-to-br from-brand-green/20 via-brand-green/10 to-transparent border border-brand-green/30' 
+            <div className={`relative mb-6 overflow-hidden rounded-2xl p-6 ${isProfit
+                ? 'bg-gradient-to-br from-brand-green/20 via-brand-green/10 to-transparent border border-brand-green/30'
                 : 'bg-gradient-to-br from-brand-red/20 via-brand-red/10 to-transparent border border-brand-red/30'
-            }`}>
-              <div className="absolute right-4 top-4 text-6xl opacity-20">
+              }`}>
+              <div className="absolute right-4 top-4 text-5xl opacity-20">
                 {isProfit ? '📈' : '📉'}
               </div>
               <div className="relative">
-                <div className="mb-2 flex items-center gap-2 text-fg/60">
-                  <DollarSign className="h-5 w-5" />
-                  <span className="text-sm font-medium uppercase tracking-wider">Total P&L</span>
+                <div className="mb-1 flex items-center gap-2 text-fg/60">
+                  <DollarSign className="h-4 w-4" />
+                  <span className="text-xs font-medium uppercase tracking-wider">Total P&L</span>
                 </div>
-                <div className={`text-6xl font-black tracking-tight ${isProfit ? 'text-brand-green' : 'text-brand-red'}`}>
+                <div className={`text-5xl font-black tracking-tight ${isProfit ? 'text-brand-green' : 'text-brand-red'}`}>
                   {isProfit ? '+' : ''}${Math.abs(session.pnl).toFixed(2)}
                 </div>
-                <div className={`mt-2 text-3xl font-bold ${isProfit ? 'text-brand-green/80' : 'text-brand-red/80'}`}>
+                <div className={`mt-1 text-2xl font-bold ${isProfit ? 'text-brand-green/80' : 'text-brand-red/80'}`}>
                   {isProfit ? '+' : ''}{session.pnlPercentage.toFixed(2)}%
                 </div>
               </div>
             </div>
 
             {/* Detailed Stats Grid */}
-            <div className="mb-8 grid gap-4 md:grid-cols-4">
-              <div className="group rounded-xl border border-white/10 bg-bg/50 p-5 transition-all hover:border-primary/50 hover:bg-bg/80">
-                <div className="mb-3 flex items-center gap-2 text-fg/60">
-                  <DollarSign className="h-4 w-4" />
-                  <span className="text-xs font-medium uppercase tracking-wider">Starting</span>
+            <div className="mb-6 grid grid-cols-2 gap-3 md:grid-cols-4">
+              <div className="group rounded-xl border border-white/10 bg-bg/50 p-4 transition-all hover:border-primary/50 hover:bg-bg/80">
+                <div className="mb-2 flex items-center gap-2 text-fg/60">
+                  <DollarSign className="h-3 w-3" />
+                  <span className="text-[10px] font-medium uppercase tracking-wider">Starting</span>
                 </div>
-                <div className="text-2xl font-bold text-fg">${session.startBalance.toFixed(2)}</div>
+                <div className="text-lg font-bold text-fg">${session.startBalance.toFixed(2)}</div>
               </div>
 
-              <div className="group rounded-xl border border-white/10 bg-bg/50 p-5 transition-all hover:border-primary/50 hover:bg-bg/80">
-                <div className="mb-3 flex items-center gap-2 text-fg/60">
-                  <DollarSign className="h-4 w-4" />
-                  <span className="text-xs font-medium uppercase tracking-wider">Final</span>
+              <div className="group rounded-xl border border-white/10 bg-bg/50 p-4 transition-all hover:border-primary/50 hover:bg-bg/80">
+                <div className="mb-2 flex items-center gap-2 text-fg/60">
+                  <DollarSign className="h-3 w-3" />
+                  <span className="text-[10px] font-medium uppercase tracking-wider">Final</span>
                 </div>
-                <div className="text-2xl font-bold text-fg">${session.currentBalance.toFixed(2)}</div>
+                <div className="text-lg font-bold text-fg">${session.currentBalance.toFixed(2)}</div>
               </div>
 
-              <div className="group rounded-xl border border-white/10 bg-bg/50 p-5 transition-all hover:border-primary/50 hover:bg-bg/80">
-                <div className="mb-3 flex items-center gap-2 text-fg/60">
-                  <Target className="h-4 w-4" />
-                  <span className="text-xs font-medium uppercase tracking-wider">Trades</span>
+              <div className="group rounded-xl border border-white/10 bg-bg/50 p-4 transition-all hover:border-primary/50 hover:bg-bg/80">
+                <div className="mb-2 flex items-center gap-2 text-fg/60">
+                  <Target className="h-3 w-3" />
+                  <span className="text-[10px] font-medium uppercase tracking-wider">Trades</span>
                 </div>
-                <div className="text-2xl font-bold text-fg">{session.trades.length}</div>
+                <div className="text-lg font-bold text-fg">{session.trades.length}</div>
               </div>
 
-              <div className="group rounded-xl border border-white/10 bg-bg/50 p-5 transition-all hover:border-primary/50 hover:bg-bg/80">
-                <div className="mb-3 flex items-center gap-2 text-fg/60">
-                  <Clock className="h-4 w-4" />
-                  <span className="text-xs font-medium uppercase tracking-wider">Duration</span>
+              <div className="group rounded-xl border border-white/10 bg-bg/50 p-4 transition-all hover:border-primary/50 hover:bg-bg/80">
+                <div className="mb-2 flex items-center gap-2 text-fg/60">
+                  <Clock className="h-3 w-3" />
+                  <span className="text-[10px] font-medium uppercase tracking-wider">Duration</span>
                 </div>
-                <div className="text-2xl font-bold text-fg">{duration}m</div>
+                <div className="text-lg font-bold text-fg">{duration}m</div>
               </div>
             </div>
 
             {/* Canvas for image generation */}
-            <div className="mb-8 overflow-hidden rounded-xl border border-white/20 shadow-xl">
+            <div className="mb-6 overflow-hidden rounded-xl border border-white/20 shadow-xl">
               <canvas
                 ref={canvasRef}
                 className="w-full"
-                style={{ maxHeight: '420px', objectFit: 'contain', backgroundColor: '#000' }}
+                style={{ maxHeight: '280px', objectFit: 'contain', backgroundColor: '#000' }}
               />
             </div>
 
@@ -299,31 +298,31 @@ export function PLSummary({ session, onClose, onNewSession }: PLSummaryProps) {
             <div className="flex flex-wrap gap-3">
               <button
                 onClick={downloadImage}
-                className="flex items-center gap-2 rounded-xl border border-primary/50 bg-primary/10 px-6 py-3.5 font-semibold text-primary transition-all hover:scale-105 hover:border-primary hover:bg-primary hover:text-white hover:shadow-lg hover:shadow-primary/50"
+                className="flex items-center gap-2 rounded-xl border border-primary/50 bg-primary/10 px-5 py-3 font-semibold text-primary transition-all hover:scale-105 hover:border-primary hover:bg-primary hover:text-white hover:shadow-lg hover:shadow-primary/50 text-sm"
               >
-                <Download className="h-5 w-5" />
+                <Download className="h-4 w-4" />
                 Download
               </button>
-              
+
               <button
                 onClick={copyStats}
-                className="flex items-center gap-2 rounded-xl border border-white/10 bg-surface px-6 py-3.5 font-semibold text-fg transition-all hover:scale-105 hover:border-white/20 hover:bg-surface/80"
+                className="flex items-center gap-2 rounded-xl border border-white/10 bg-surface px-5 py-3 font-semibold text-fg transition-all hover:scale-105 hover:border-white/20 hover:bg-surface/80 text-sm"
               >
-                <Copy className="h-5 w-5" />
+                <Copy className="h-4 w-4" />
                 {copied ? 'Copied!' : 'Copy Stats'}
               </button>
 
               <button
                 onClick={onNewSession}
-                className="flex-1 rounded-xl bg-gradient-to-r from-primary to-accent px-6 py-3.5 font-semibold text-white transition-all hover:scale-105 hover:shadow-lg hover:shadow-primary/50"
+                className="flex-1 rounded-xl bg-gradient-to-r from-primary to-accent px-5 py-3 font-semibold text-white transition-all hover:scale-105 hover:shadow-lg hover:shadow-primary/50 text-sm"
               >
-                <Zap className="mr-2 inline h-5 w-5" />
+                <Zap className="mr-2 inline h-4 w-4" />
                 Start New Session
               </button>
 
               <button
                 onClick={onClose}
-                className="rounded-xl border border-white/10 px-6 py-3.5 font-semibold text-fg transition-all hover:border-white/20 hover:bg-surface/50"
+                className="rounded-xl border border-white/10 px-5 py-3 font-semibold text-fg transition-all hover:border-white/20 hover:bg-surface/50 text-sm"
               >
                 Close
               </button>

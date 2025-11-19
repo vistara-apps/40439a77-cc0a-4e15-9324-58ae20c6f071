@@ -7,13 +7,14 @@ import { TradingChart } from '@/components/TradingChart'
 import { TradePanel } from '@/components/TradePanel'
 import { Portfolio } from '@/components/Portfolio'
 import { PLSummary } from '@/components/PLSummary'
-import { useTradingSession } from '@/lib/hooks/useTradingSession'
+import { CoinDropdown } from '@/components/CoinDropdown'
+import { useTradingSessionDB } from '@/lib/hooks/useTradingSessionDB'
 import { Header } from '@/components/Header'
 import type { CoinType } from '@/lib/types'
 
 export default function TradePage() {
   const { session, prices, isLoading, executeTrade, updatePositions, endSession, resetSession } =
-    useTradingSession(10000)
+    useTradingSessionDB(10000)
   const [showSummary, setShowSummary] = useState(false)
   const [selectedCoin, setSelectedCoin] = useState<CoinType>('BTC')
 
@@ -78,28 +79,11 @@ export default function TradePage() {
           {/* Left Column - Charts and Trading */}
           <div className="space-y-6 lg:col-span-2">
             {/* Coin Selector */}
-            <div className="flex gap-4">
-              <button
-                onClick={() => setSelectedCoin('BTC')}
-                className={`flex-1 rounded-lg border px-6 py-3 font-semibold transition-all ${
-                  selectedCoin === 'BTC'
-                    ? 'border-primary bg-primary text-white'
-                    : 'border-white/10 bg-surface text-fg hover:border-primary/50'
-                }`}
-              >
-                Bitcoin (BTC)
-              </button>
-              <button
-                onClick={() => setSelectedCoin('SOL')}
-                className={`flex-1 rounded-lg border px-6 py-3 font-semibold transition-all ${
-                  selectedCoin === 'SOL'
-                    ? 'border-primary bg-primary text-white'
-                    : 'border-white/10 bg-surface text-fg hover:border-primary/50'
-                }`}
-              >
-                Solana (SOL)
-              </button>
-            </div>
+            <CoinDropdown
+              selectedCoin={selectedCoin}
+              onCoinSelect={setSelectedCoin}
+              prices={prices}
+            />
 
             {/* Chart */}
             <TradingChart coin={selectedCoin} price={prices[selectedCoin]} />
